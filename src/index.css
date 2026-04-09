@@ -1,0 +1,23 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+@theme {
+  --color-brand: #0696D7;
+  --color-brand-hover: #057db3;
+  --color-brand-alt: #EF5D3C;
+  --font-inter: 'Inter', sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    font-family: var(--font-inter);
+    @apply antialiased bg-slate-50 text-slate-900 transition-colors duration-300;
+  }
+
+  html.dark body {
+    @apply bg-slate-900 text-slate-50;
+  }
+}
