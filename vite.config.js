@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/Sito-Portfolio_GR/',
+  base: '/',
   plugins: [
     react(),
     tailwindcss(),

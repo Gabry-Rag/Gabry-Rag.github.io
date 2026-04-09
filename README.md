@@ -1,12 +1,12 @@
 # Sito Portfolio GR
 
-[![Deploy to GitHub Pages](https://github.com/Gabry-Rag/Sito-Portfolio_GR/actions/workflows/deploy.yml/badge.svg)](https://Gabry-Rag.github.io/Sito-Portfolio_GR/)
+[![Deploy to GitHub Pages](https://github.com/Gabry-Rag/Gabry-Rag.github.io/actions/workflows/deploy.yml/badge.svg)](https://Gabry-Rag.github.io/)
 
 Questo è il repository per il sito portfolio, costruito con React e Vite.
 
 ## 🚀 Live Demo
 Il sito è automaticamente deployato tramite GitHub Actions e può essere visitato al seguente URL:
-[https://Gabry-Rag.github.io/Sito-Portfolio_GR/](https://Gabry-Rag.github.io/Sito-Portfolio_GR/)
+[https://Gabry-Rag.github.io/](https://Gabry-Rag.github.io/)
 
 ---
 
