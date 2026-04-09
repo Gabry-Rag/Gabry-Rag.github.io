@@ -28,10 +28,19 @@ export default function DriveExplorer({ rootFolderId, scriptUrl }) {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`${scriptUrl}?folderId=${folderId}`);
+      const response = await fetch(`${scriptUrl}?id=${folderId}`);
       if (!response.ok) throw new Error('Network response was not ok');
       const data = await response.json();
-      setItems(data.items || []);
+      const loadedFolders = (data.folders || []).map(f => ({ 
+        ...f, 
+        isFolder: true, 
+        mimeType: 'application/vnd.google-apps.folder' 
+      }));
+      const loadedFiles = (data.files || []).map(f => ({ 
+        ...f, 
+        isFolder: false 
+      }));
+      setItems([...loadedFolders, ...loadedFiles]);
     } catch (err) {
       console.error('Error fetching drive content:', err);
       setError('Impossibile caricare i file. Verifica la connessione o la configurazione dello script.');
@@ -200,7 +209,7 @@ export default function DriveExplorer({ rootFolderId, scriptUrl }) {
             </div>
             <div className="flex-1 bg-slate-100 dark:bg-slate-950">
               <iframe 
-                src={previewFile.previewUrl}
+                src={previewFile.previewUrl ? previewFile.previewUrl.replace(/\/view.*$/, '/preview') : ''}
                 className="w-full h-full border-0"
                 allow="autoplay"
               ></iframe>

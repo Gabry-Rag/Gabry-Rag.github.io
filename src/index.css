@@ -1,10 +1,13 @@
 @import "tailwindcss";
+
 @custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --color-brand: #0696D7;
   --color-brand-hover: #057db3;
   --color-brand-alt: #EF5D3C;
   --font-inter: 'Inter', sans-serif;
+  --font-outfit: 'Outfit', sans-serif;
 }
 
 @layer base {
@@ -14,10 +17,40 @@
   
   body {
     font-family: var(--font-inter);
-    @apply antialiased bg-slate-50 text-slate-900 transition-colors duration-300;
+    @apply antialiased bg-slate-50 text-slate-800 transition-colors duration-300;
   }
 
   html.dark body {
-    @apply bg-slate-900 text-slate-50;
+    @apply bg-slate-950 text-slate-100;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-outfit);
   }
 }
+
+@layer components {
+  /* Premium Glassmorphism Panels */
+  .glass-panel {
+    @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-xl;
+  }
+  
+  .dark .glass-panel {
+    @apply bg-slate-900/60 backdrop-blur-md border border-slate-700/50 shadow-2xl;
+  }
+
+  /* Nav Glass specifically */
+  .glass-nav {
+    @apply bg-white/80 backdrop-blur-lg border-b border-white/20;
+  }
+
+  .dark .glass-nav {
+    @apply bg-slate-950/80 backdrop-blur-lg border-b border-slate-800/50;
+  }
+
+  /* Gradient Text */
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-brand to-brand-alt;
+  }
+}
+

@@ -3,11 +3,14 @@ import { createContext, useContext, useEffect, useState } from 'react';
 const ThemeContext = createContext();
 
 export function ThemeProvider({ children }) {
-  // Default to 'dark' for "Engineer Dark Mode" unless 'light' is in localStorage
   const [theme, setTheme] = useState(() => {
     if (typeof window !== 'undefined') {
       const savedTheme = localStorage.getItem('theme');
-      return savedTheme === 'light' ? 'light' : 'dark';
+      if (savedTheme) {
+        return savedTheme;
+      }
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      return mediaQuery.matches ? 'dark' : 'light';
     }
     return 'dark';
   });

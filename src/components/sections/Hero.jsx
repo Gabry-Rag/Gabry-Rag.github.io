@@ -1,49 +1,102 @@
 import { ArrowRight, Download } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
+import { motion } from 'framer-motion';
 
 export default function Hero() {
   const { t } = useLanguage();
 
-  return (
-    <section className="relative overflow-hidden bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 transition-colors duration-300">
-      {/* Decorative background grid pattern for technical feel */}
-      <div className="absolute inset-0 z-0 opacity-[0.03] dark:opacity-[0.05]" 
-           style={{ backgroundImage: 'linear-gradient(var(--color-slate-grey) 1px, transparent 1px), linear-gradient(90deg, var(--color-slate-grey) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32 relative z-10 flex flex-col md:flex-row items-center">
-        
-        <div className="w-full md:w-1/2 md:pr-12 text-center md:text-left mb-12 md:mb-0">
-          <div className="inline-flex items-center px-3 py-1 rounded-full bg-[#0696D7]/10 text-[#0696D7] text-xs font-semibold uppercase tracking-wider mb-6">
-            {t('hero.role')}
-          </div>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-slate-50 tracking-tight leading-tight mb-6 transition-colors">
-            {t('hero.titleStart')} <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0696D7] to-[#EF5D3C]">{t('hero.titleHighlight')}</span>
-          </h1>
-          <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto md:mx-0 mb-8 transition-colors">
-            {t('hero.description')}
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-            <a href="#projects" className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-[#0696D7] hover:bg-[#057db3] transition-colors gap-2 shadow-sm">
-              {t('hero.viewWork')} <ArrowRight className="h-4 w-4" />
-            </a>
-            <a href="#contact" className="inline-flex items-center justify-center px-6 py-3 border border-slate-300 dark:border-slate-700 text-base font-medium rounded-md text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors gap-2 shadow-sm">
-              {t('hero.downloadResume')} <Download className="h-4 w-4" />
-            </a>
-          </div>
-        </div>
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.2
+      }
+    }
+  };
 
-        <div className="w-full md:w-1/2 relative">
-          <div className="aspect-square sm:aspect-[4/3] md:aspect-square bg-slate-200 dark:bg-slate-800 rounded-2xl shadow-2xl border border-slate-300 dark:border-slate-700 flex items-center justify-center overflow-hidden relative transition-colors">
-            <div className="text-slate-400 dark:text-slate-500 font-mono text-sm uppercase tracking-widest text-center px-4">
-              <span className="block mb-2">{t('hero.modelTitle')}</span>
-              <span className="opacity-50">{t('hero.modelDesc')}</span>
-            </div>
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+  };
+
+  return (
+    <section className="relative min-h-[90vh] flex items-center justify-center pt-20 pb-16 overflow-hidden bg-transparent">
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full flex flex-col md:flex-row items-center">
+        
+        {/* Left Column - Text Content */}
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="w-full md:w-1/2 md:pr-12 text-center md:text-left mb-16 md:mb-0"
+        >
+          <motion.div variants={itemVariants} className="inline-flex items-center px-4 py-2 rounded-full bg-brand/10 dark:bg-brand/20 text-brand text-sm font-semibold tracking-wide mb-8 border border-brand/20 shadow-sm backdrop-blur-sm">
+            {t('hero.role')}
+          </motion.div>
+          
+          <motion.h1 variants={itemVariants} className="font-outfit text-5xl sm:text-6xl lg:text-7xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.1] mb-6">
+            {t('hero.titleStart')}{' '}
+            <span className="block mt-2 text-transparent bg-clip-text bg-gradient-to-r from-brand via-[#00c6ff] to-brand-alt">
+              {t('hero.titleHighlight')}
+            </span>
+          </motion.h1>
+          
+          <motion.p variants={itemVariants} className="text-lg sm:text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto md:mx-0 mb-10 leading-relaxed font-light">
+            {t('hero.description')}
+          </motion.p>
+          
+          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-5 justify-center md:justify-start">
+            <a href="#projects" className="group inline-flex items-center justify-center px-8 py-4 text-base font-medium rounded-full text-white bg-slate-900 dark:bg-white dark:text-slate-900 shadow-xl shadow-brand/20 hover:scale-105 transition-all duration-300 gap-3">
+              {t('hero.viewWork')} <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+            </a>
+            <a href="#contact" className="group inline-flex items-center justify-center px-8 py-4 text-base font-medium rounded-full text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-800/80 glass-panel hover:bg-slate-50 dark:hover:bg-slate-700/80 transition-all duration-300 gap-3">
+              {t('hero.downloadResume')} <Download className="h-5 w-5 group-hover:-translate-y-1 transition-transform" />
+            </a>
+          </motion.div>
+        </motion.div>
+
+        {/* Right Column - Visual/Interactive Placeholder */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
+          animate={{ opacity: 1, scale: 1, rotate: 0 }}
+          transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
+          className="w-full md:w-1/2 relative"
+        >
+          <div className="relative aspect-square max-w-[500px] mx-auto md:ml-auto md:mr-0 group">
+            {/* Soft backdrop glow */}
+            <div className="absolute inset-0 bg-brand/20 dark:bg-brand/30 rounded-full blur-[80px] group-hover:blur-[100px] transition-all duration-700"></div>
             
-            {/* Example technical decoration inside the image placeholder */}
-            <div className="absolute top-4 left-4 w-2 h-2 rounded-full bg-[#EF5D3C] animate-pulse"></div>
-            <div className="absolute bottom-4 right-4 text-xs font-mono text-slate-400 opacity-50">COORD: X:14 Y:92 Z:41</div>
+            {/* The structural placeholder shape */}
+            <motion.div 
+              animate={{ y: [0, -15, 0] }}
+              transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
+              className="relative w-full h-full glass-panel rounded-3xl overflow-hidden shadow-2xl border border-white/40 dark:border-white/10 flex flex-col items-center justify-center"
+            >
+              <div className="text-slate-400 dark:text-slate-500 font-mono text-sm uppercase tracking-widest text-center px-6">
+                <span className="block mb-2 font-bold">{t('hero.modelTitle')}</span>
+                <span className="opacity-50 text-xs">{t('hero.modelDesc')}</span>
+              </div>
+              
+              {/* Decorative elements */}
+              <div className="absolute top-6 left-6 flex space-x-2">
+                <div className="w-3 h-3 rounded-full bg-red-400/80"></div>
+                <div className="w-3 h-3 rounded-full bg-yellow-400/80"></div>
+                <div className="w-3 h-3 rounded-full bg-green-400/80"></div>
+              </div>
+              
+              {/* Dynamic grid inside */}
+              <div className="absolute inset-0 z-[-1] opacity-[0.05] dark:opacity-[0.1]" 
+                style={{ backgroundImage: 'linear-gradient(currentColor 1px, transparent 1px), linear-gradient(90deg, currentColor 1px, transparent 1px)', backgroundSize: '30px 30px' }} />
+              
+              <div className="absolute bottom-6 right-6 text-xs font-mono text-slate-400/70 border border-slate-400/30 px-3 py-1 rounded-md backdrop-blur-sm">
+                RENDER_READY: TRUE
+              </div>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
